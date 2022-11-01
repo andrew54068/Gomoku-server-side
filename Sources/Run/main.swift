@@ -12,6 +12,7 @@ print(URLRequest.self)
 print("@@@@@@@")
 
 var env = try Environment.detect()
+try loadCustomEnv(env)
 try LoggingSystem.bootstrap(from: &env)
 let app = Application(env)
 defer { app.shutdown() }
@@ -23,10 +24,5 @@ try configureTelegramBot(app)
 
 try configureFCL()
 try configure(app)
-
-//guard let contractEnv = contractEnvFileURL() else {
-//    fatalError("contractEnv not found")
-//}
-//DotEnvFile.load(path: contractEnv.absoluteString, on: .shared(app.eventLoopGroup), fileio: app.fileio, logger: app.logger)
 
 try app.run()

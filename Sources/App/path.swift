@@ -10,10 +10,10 @@ import Foundation
 func urlForContractRoot() -> URL? {
     let currentFileURL = URL(fileURLWithPath: "\(#file)", isDirectory: false)
     let paths = currentFileURL.absoluteString.split(separator: "/")
-    return URL(string: String(paths.dropLast(5).joined(separator: "/")) + "/packages/contract/")
+    return URL(string: String(paths.dropLast(5).joined(separator: "/")))
 }
 
-public func contractEnvFileURL() -> URL? {
+public func contractEnvFileURL(envFileName: String) -> URL? {
     guard let contractRoot = urlForContractRoot() else {
         return nil
     }
@@ -21,7 +21,7 @@ public func contractEnvFileURL() -> URL? {
         root: contractRoot,
         includingPropertiesForKeys: [.isHiddenKey],
         options: [.skipsSubdirectoryDescendants],
-        keyword: ".env"
+        keyword: envFileName
     )
 }
 

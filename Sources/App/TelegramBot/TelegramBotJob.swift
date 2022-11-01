@@ -101,7 +101,7 @@ public struct TelegramBotJob: AsyncJob {
                 guard user.enableNotification else {
                     continue
                 }
-                
+
                 guard gomokuComposition.roundWinners.count < 2 else {
                     continue
                 }
@@ -128,7 +128,7 @@ public struct TelegramBotJob: AsyncJob {
                                 userAddress: payload.userAddress
                             ),
                             maxRetryCount: 3,
-                            delayUntil: Date(timeIntervalSinceNow: 1 * 10)
+                            delayUntil: Date(timeIntervalSinceNow: 1 * 15)
                         )
                 }
             } catch {

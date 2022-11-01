@@ -6,10 +6,22 @@
 //
 
 import Foundation
+import Vapor
 
-public func loadCustomEnv() throws {
-    guard let contractEnv = contractEnvFileURL() else {
-        fatalError("contractEnv not found")
+public func loadCustomEnv(_ env: Environment) throws {
+    let envFileName: String
+    switch env.name {
+    case Environment.production.name:
+        envFileName = ".env"
+    case Environment.development.name:
+        envFileName = ".env.emulator"
+    case Environment.testing.name:
+        envFileName = ".env.testnet"
+    default:
+        fatalError("name of env should be development, testing, production")
+    }
+    guard let contractEnv = contractEnvFileURL(envFileName: envFileName) else {
+        fatalError("\(envFileName) not found")
     }
 
     let content = try String(contentsOf: contractEnv, encoding: .utf8)
